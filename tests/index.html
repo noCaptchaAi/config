@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Configuration Editor</title>
+    <style>
+      body {
+        width: 95%;
+        margin: 0 auto;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      label {
+        font-size: large;
+        padding: 0;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="urlTextarea" rows="7" style="width: 98%"></textarea>
+    <div id="showWhenParams">
+      <h1>This page is for applying config to extension</h1>
+      <p>Note: Simply copy and visiting this url will send the config to extensions</p>
+      <p>- Supports firefox </p>
+      <p>- Chrome support in progress</p>
+    </div>
+    <div id="hideWhenParams">
+      <h1>This page is for configuring the link</h1>
+      <div>
+        <label for="apiKeyInput">API Key:</label>
+        <input type="text" id="apiKeyInput" />
+      </div>
+
+      <div>
+        <label for="planSelect">Plan Type:</label>
+        <select id="planSelect">
+          <option value="pro">Pro</option>
+          <option value="free">Free</option>
+          <option value="custom">Custom</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="customEndpointInput">Custom Endpoint:</label>
+        <input type="text" id="customEndpointInput" />
+      </div>
+
+      <div>
+        <label for="hCaptchaEnabledCheckbox">hCaptcha Enabled:</label>
+        <input type="checkbox" id="hCaptchaEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="reCaptchaEnabledCheckbox">reCaptcha Enabled:</label>
+        <input type="checkbox" id="reCaptchaEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="dataDomeEnabledCheckbox">DataDome Enabled:</label>
+        <input type="checkbox" id="dataDomeEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="ocrEnabledCheckbox">OCR Enabled:</label>
+        <input type="checkbox" id="ocrEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="ocrToastEnabledCheckbox">OCR Toast Enabled:</label>
+        <input type="checkbox" id="ocrToastEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="extensionEnabledCheckbox">Extension Enabled:</label>
+        <input type="checkbox" id="extensionEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="logsEnabledCheckbox">Logs Enabled:</label>
+        <input type="checkbox" id="logsEnabledCheckbox" />
+      </div>
+
+      <div>
+        <label for="fastAnimationModeCheckbox">Fast Animation Mode:</label>
+        <input type="checkbox" id="fastAnimationModeCheckbox" />
+      </div>
+
+      <div>
+        <label for="debugModeCheckbox">Debug Mode:</label>
+        <input type="checkbox" id="debugModeCheckbox" />
+      </div>
+
+      <div>
+        <label for="hCaptchaAutoOpenCheckbox">hCaptcha Auto Open:</label>
+        <input type="checkbox" id="hCaptchaAutoOpenCheckbox" />
+      </div>
+
+      <div>
+        <label for="hCaptchaAutoSolveCheckbox">hCaptcha Auto Solve:</label>
+        <input type="checkbox" id="hCaptchaAutoSolveCheckbox" />
+      </div>
+
+      <div>
+        <label for="hCaptchaAlwaysSolveCheckbox">hCaptcha Always Solve:</label>
+        <input type="checkbox" id="hCaptchaAlwaysSolveCheckbox" />
+      </div>
+
+      <div>
+        <label for="englishLanguageCheckbox">English Language:</label>
+        <input type="checkbox" id="englishLanguageCheckbox" />
+      </div>
+
+      <div>
+        <label for="hCaptchaGridSolveTimeInput"
+          >hCaptcha Grid Solve Time:</label
+        >
+        <input type="number" id="hCaptchaGridSolveTimeInput" />
+      </div>
+
+      <div>
+        <label for="hCaptchaMultiSolveTimeInput"
+          >hCaptcha Multi Solve Time:</label
+        >
+        <input type="number" id="hCaptchaMultiSolveTimeInput" />
+      </div>
+
+      <div>
+        <label for="hCaptchaBoundingBoxSolveTimeInput"
+          >hCaptcha Bounding Box Solve Time:</label
+        >
+        <input type="number" id="hCaptchaBoundingBoxSolveTimeInput" />
+      </div>
+
+      <div>
+        <label for="reCaptchaAutoOpenCheckbox">reCaptcha Auto Open:</label>
+        <input type="checkbox" id="reCaptchaAutoOpenCheckbox" />
+      </div>
+
+      <div>
+        <label for="reCaptchaAutoSolveCheckbox">reCaptcha Auto Solve:</label>
+        <input type="checkbox" id="reCaptchaAutoSolveCheckbox" />
+      </div>
+
+      <div>
+        <label for="reCaptchaAlwaysSolveCheckbox"
+          >reCaptcha Always Solve:</label
+        >
+        <input type="checkbox" id="reCaptchaAlwaysSolveCheckbox" />
+      </div>
+
+      <div>
+        <label for="reCaptchaClickDelayInput">reCaptcha Click Delay:</label>
+        <input type="number" id="reCaptchaClickDelayInput" />
+      </div>
+
+      <div>
+        <label for="reCaptchaSubmitDelayInput">reCaptcha Submit Delay:</label>
+        <input type="number" id="reCaptchaSubmitDelayInput" />
+      </div>
+
+      <div>
+        <label for="reCaptchaSolveTypeSelect">reCaptcha Solve Type:</label>
+        <select id="reCaptchaSolveTypeSelect">
+          <option value="image">Image</option>
+          <option value="audio">Audio</option>
+        </select>
+      </div>
+    </div>
+
+    <script>
+      if (window.location.search) {
+        console.log("URL has search parameters");
+        document.getElementById("hideWhenParams").style.display = "none";
+        document.getElementById("urlTextarea").value = window.location.href;
+      } else {
+        document.getElementById("showWhenParams").style.display = "none";
+        console.log("URL does not have search parameters");
+        let defaultConfigs = {
+          // Global
+          APIKEY: null,
+          PLANTYPE: ["pro", "free", "custom"],
+          customEndpoint: null,
+          hCaptchaEnabled: true,
+          reCaptchaEnabled: true,
+          dataDomeEnabled: true,
+          ocrEnabled: true,
+          ocrToastEnabled: true,
+          extensionEnabled: true,
+          logsEnabled: true,
+          fastAnimationMode: true,
+          debugMode: true,
+
+          // hCaptcha
+          hCaptchaAutoOpen: true,
+          hCaptchaAutoSolve: true,
+          hCaptchaAlwaysSolve: true,
+          englishLanguage: true,
+          hCaptchaGridSolveTime: 7,
+          hCaptchaMultiSolveTime: 5,
+          hCaptchaBoundingBoxSolveTime: 5,
+
+          // reCaptcha
+          reCaptchaAutoOpen: true,
+          reCaptchaAutoSolve: true,
+          reCaptchaAlwaysSolve: true,
+          reCaptchaClickDelay: 400,
+          reCaptchaSubmitDelay: 1,
+          reCaptchaSolveType: ["image", "audio"],
+        };
+
+        function updateURL() {
+          const urlTextarea = document.getElementById("urlTextarea");
+          const baseUrl = window.location.href.split("?")[0] + "?";
+
+          const queryParams = Object.entries(defaultConfigs)
+            .map(
+              ([key, value]) =>
+                `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+            )
+            .join("&");
+
+          const url = baseUrl + queryParams;
+          urlTextarea.value = url;
+        }
+
+        function createEventListener(elementId, configKey, eventType) {
+          const element = document.getElementById(elementId);
+          element.addEventListener(eventType, function (event) {
+            let value;
+            if (element.type === "checkbox") {
+              value = element.checked;
+            } else {
+              value = element.value;
+            }
+            defaultConfigs[configKey] = value;
+            updateURL();
+          });
+        }
+
+        createEventListener("apiKeyInput", "APIKEY", "input");
+        createEventListener("planSelect", "PLANTYPE", "change");
+        createEventListener("customEndpointInput", "customEndpoint", "input");
+        createEventListener(
+          "hCaptchaEnabledCheckbox",
+          "hCaptchaEnabled",
+          "change"
+        );
+        createEventListener(
+          "reCaptchaEnabledCheckbox",
+          "reCaptchaEnabled",
+          "change"
+        );
+        createEventListener(
+          "dataDomeEnabledCheckbox",
+          "dataDomeEnabled",
+          "change"
+        );
+        createEventListener("ocrEnabledCheckbox", "ocrEnabled", "change");
+        createEventListener(
+          "ocrToastEnabledCheckbox",
+          "ocrToastEnabled",
+          "change"
+        );
+        createEventListener(
+          "extensionEnabledCheckbox",
+          "extensionEnabled",
+          "change"
+        );
+        createEventListener("logsEnabledCheckbox", "logsEnabled", "change");
+        createEventListener(
+          "fastAnimationModeCheckbox",
+          "fastAnimationMode",
+          "change"
+        );
+        createEventListener("debugModeCheckbox", "debugMode", "change");
+        createEventListener(
+          "hCaptchaAutoOpenCheckbox",
+          "hCaptchaAutoOpen",
+          "change"
+        );
+        createEventListener(
+          "hCaptchaAutoSolveCheckbox",
+          "hCaptchaAutoSolve",
+          "change"
+        );
+        createEventListener(
+          "hCaptchaAlwaysSolveCheckbox",
+          "hCaptchaAlwaysSolve",
+          "change"
+        );
+        createEventListener(
+          "englishLanguageCheckbox",
+          "englishLanguage",
+          "change"
+        );
+        createEventListener(
+          "hCaptchaGridSolveTimeInput",
+          "hCaptchaGridSolveTime",
+          "input"
+        );
+        createEventListener(
+          "hCaptchaMultiSolveTimeInput",
+          "hCaptchaMultiSolveTime",
+          "input"
+        );
+        createEventListener(
+          "hCaptchaBoundingBoxSolveTimeInput",
+          "hCaptchaBoundingBoxSolveTime",
+          "input"
+        );
+        createEventListener(
+          "reCaptchaAutoOpenCheckbox",
+          "reCaptchaAutoOpen",
+          "change"
+        );
+        createEventListener(
+          "reCaptchaAutoSolveCheckbox",
+          "reCaptchaAutoSolve",
+          "change"
+        );
+        createEventListener(
+          "reCaptchaAlwaysSolveCheckbox",
+          "reCaptchaAlwaysSolve",
+          "change"
+        );
+        createEventListener(
+          "reCaptchaClickDelayInput",
+          "reCaptchaClickDelay",
+          "input"
+        );
+        createEventListener(
+          "reCaptchaSubmitDelayInput",
+          "reCaptchaSubmitDelay",
+          "input"
+        );
+        createEventListener(
+          "reCaptchaSolveTypeSelect",
+          "reCaptchaSolveType",
+          "change"
+        );
+
+        updateURL();
+      }
+    </script>
+  </body>
+</html>
