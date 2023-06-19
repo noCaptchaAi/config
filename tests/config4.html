@@ -3,48 +3,7 @@
 
 <head>
     <title>noCaptchaAi.com Extension Config</title>
-    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/110127579?s=200&v=4" type="image/x-icon">
     <meta charset="UTF-8">
-     <!-- add seo tags and fill content -->
-    <meta name="description" content="noCaptchaAi.com Extension Config">
-    <meta name="keywords" content="noCaptchaAi.com Extension Config">
-    <meta name="author" content="noCaptchaAi.com">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
-    <meta name="web_author" content="noCaptchaAi.com">
-    <meta name="reply-to" content=" noCaptchaAi.com">
-    <meta name="url" content="https://nocaptchaai.com">
-    <meta name="identifier-URL" content="https://nocaptchaai.com">
-    <meta name="category" content="noCaptchaAi.com">
-    <meta name="coverage" content="Worldwide">
-    <meta name="distribution" content="Global">
-    <meta name="rating" content="General">
-    <meta name="target" content="all">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="googlebot" content="index, follow">
-    <meta name="google" content="nositelinkssearchbox">
-    <meta name="google" content="notranslate">
-    <meta name="google" content="nositelinkssearchbox">
-    <meta name="google" content="notranslate">
-    <meta property="og:title" content="noCaptchaAi.com Extension Config">
-    <meta property="og:description" content="noCaptchaAi.com Extension Config">
-    <meta property="og:image" content="https://avatars.githubusercontent.com/u/110127579?s=200&v=4">
-    <meta property="og:url" content="https://nocaptchaai.com">
-    <meta property="og:site_name" content="noCaptchaAi.com">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="en_US">
-    <meta property="fb:app_id" content="noCaptchaAi.com">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="noCaptchaAi.com">
-    <meta name="twitter:creator" content="noCaptchaAi.com">
-    <meta name="twitter:title" content="noCaptchaAi.com Extension Config">
-    <meta name="twitter:description" content="noCaptchaAi.com Extension Config">
-    <meta name="twitter:image" content="https://avatars.githubusercontent.com/u/110127579?s=200&v=4">
-    <meta name="twitter:url" content="https://nocaptchaai.com">
-    <meta name="twitter:domain" content="noCaptchaAi.com">
-    <meta name="twitter:data1" content="noCaptchaAi.com">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -134,14 +93,12 @@
         <p class="text-red-500 font-bold hover:text-sky-800">Currently Support only Firefox Addon</p>
 
         <div class="text-xl font-bold gap-3 flex flex-row justify-center">
-            <a class="btn text-sky-500  hover:text-sky-800" href="https://nocaptchaai.com/firefox">Get Firefox Addon</a>
+            <a class="btn text-sky-500  hover:text-sky-800" href="https://nocaptchaai.com/firefox">Firefox Addon</a>
         </div>
     </div>
 
-    <textarea 
-    aria-label="configUrl"
-    id="configUrl" type="text" class="mt-1 w-screen overflow-auto rounded-lg border border-gray-300 p-3 m-2 overflow-wrap max-w-7xl"
-        rows="5" readonly>
+    <textarea id="configUrl" type="text" class="mt-1 w-screen overflow-auto rounded-lg border border-gray-300 p-3 m-2 overflow-wrap max-w-7xl"
+        rows="3" readonly>
     </textarea>
 
     <div>
@@ -158,7 +115,7 @@
 
     <div id="configForm" class="flex flex-row flex-wrap justify-center w-12/12 gap-1 m-1">
         <div class="configGroup w-4/12 border border-gray-200 rounded-md p-2  m-1" id="globalConfigs">
-            <h3 class="text-center text-xl mb-4">Global & OCR</h3>
+            <h3 class="text-center text-xl mb-4">Global</h3>
             <hr>
         </div>
         <div class="configGroup w-4/12 border border-gray-200 rounded-md p-2  m-1" id="hCaptchaConfigs">
@@ -169,12 +126,6 @@
             <h3 class="text-center text-xl mb-4">reCaptcha</h3>
             <hr>
         </div>
-    </div>
-
-
-    <div class="text-xl font-bold mt-5">
-        <p>Looking for chrome Extension?</p>
-        <a class="text-green-600 " href="https://nocaptchaai.com/firefox">Get Chrome Extension</a>
     </div>
 
     <script>
@@ -248,19 +199,11 @@
         function createSelectOptions(key, values) {
             const select = document.createElement("select");
             select.id = key;
-            select.style.fontSize = "1.2rem";
-            // make select button like
-            select.style.border = "2px solid cyan";
-            select.style.padding = "1px 8px";
-            select.style.borderRadius = "5px";
-
-            select.style.fontWeight = "bold";
             select.addEventListener("change", updateUrl);
 
             const defaultOption = document.createElement("option");
             defaultOption.value = null;
-            defaultOption.style.fontSize = "1.2rem";
-            defaultOption.textContent = "Select";
+            defaultOption.textContent = "None";
             select.appendChild(defaultOption);
 
             values.forEach((value) => {
@@ -294,8 +237,6 @@
                 input.type = "text";
                 input.value = value;
             }
-            // how to add label to input elements
-            label.htmlFor = key;
             input.id = key;
             input.addEventListener("change", updateUrl);
 
